@@ -21,6 +21,8 @@ runs:
   steps:
     - name: Detect changes
       id: detect
+      env:
+        GITHUB_TOKEN: ${{ inputs.token }}
       shell: bash
       run: |
         echo "Detecting changed files..."
