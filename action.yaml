@@ -1,0 +1,33 @@
+name: 'Changed Files Detector'
+description: 'Detects changed files in pull requests'
+inputs:
+  token:
+    description: 'GitHub token for API access'
+    required: false
+    default: ${{ github.token }}
+  files:
+    description: 'File patterns to detect'
+    required: false
+    default: '**'
+outputs:
+  changed_files:
+    description: 'List of changed files'
+    value: ${{ steps.detect.outputs.files }}
+  any_changed:
+    description: 'Whether any files changed'
+    value: ${{ steps.detect.outputs.changed }}
+runs:
+  using: 'composite'
+  steps:
+    - name: Detect changes
+      id: detect
+      shell: bash
+      run: |
+        echo "Detecting changed files..."
+        CHANGED=$(git diff --name-only HEAD~1 2>/dev/null || echo "")
+        echo "files=$CHANGED" >> $GITHUB_OUTPUT
+        if [ -n "$CHANGED" ]; then
+          echo "changed=true" >> $GITHUB_OUTPUT
+        else
+          echo "changed=false" >> $GITHUB_OUTPUT
+        fi
