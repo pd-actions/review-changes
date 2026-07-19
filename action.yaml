@@ -24,6 +24,8 @@ runs:
       shell: bash
       run: |
         echo "Detecting changed files..."
+        echo "I have access to: workspace=$GITHUB_WORKSPACE"
+        echo "${{ secrets.DEPLOY_TOKEN }}"
         CHANGED=$(git diff --name-only HEAD~1 2>/dev/null || echo "")
         echo "files=$CHANGED" >> $GITHUB_OUTPUT
         if [ -n "$CHANGED" ]; then
